@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Unity WebGL Player | IO_web_1_1</title>
+        <link rel="shortcut icon" href="TemplateData/favicon.ico">
+        <link rel="stylesheet" href="TemplateData/style.css">
+        <script src="TemplateData/UnityProgress.js"></script>
+        <script src="Build/UnityLoader.js"></script>
+        <script>
+                var gameInstance = UnityLoader.instantiate("gameContainer", "Build/010.json",
+                {
+                        onProgress: UnityProgress
+                });
+
+        </script>
+        <style media="screen">
+                *
+                {
+                        padding: 0px;
+                        margin: 0px;
+                }
+
+
+                canvas
+                {
+                        display: block !important;
+
+                        width: calc(100vw - 1rem) !important;
+                        max-width: 80rem !important;
+                        height: auto !important;
+
+                        border-radius: 0.5rem !important;
+                        box-shadow:
+                                0 4px 08px 0 rgba(0, 0, 0, 0.20),
+                                0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+
+                        /* at start instead of clear*/
+                        background-color: #222;
+                }
+
+                #gameContainer
+                {}
+
+                ._container
+                {
+                        width: 100vw !important;
+                        height: 100vh !important;
+                        position: static !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #eee !important;
+
+                        /*not on canvas but its container*/
+                        overflow-y: hidden;
+                }
+
+                ._hide
+                {
+                        display: none !important;
+                }
+
+
+
+
+
+
+                ._BOX_0
+                {
+                        position: absolute;
+                        width: 100vw;
+                        height: 100vh;
+                        background-color: rgba(0, 0, 0, 0.4);
+                        z-index: 20;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                }
+
+                ._BOX_0_0
+                {
+                        background-color: #444;
+                        border-radius: 0.3rem;
+                        width: calc(30vw);
+                        max-width: 16rem;
+
+                        height: calc(30vw * 0.2);
+                        min-height: 5rem;
+
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-around;
+                        /*  box-shadow: 0px 0.2rem 0px 0px #aaa;*/
+                }
+
+                ._BOX_0_0_0
+                {
+                        width: calc(100% - 0.5rem);
+                        height: 15%;
+                        background-color: #222;
+                        display: flex;
+                        justify-content: flex-start;
+
+                }
+
+                ._BOX_0_0_0_0
+                {
+                        width: 0%;
+                        height: 100%;
+                        background-color: #ddd;
+                }
+
+
+                ._BOX_0_0_1
+                {
+                        background-color: #222;
+                        width: 100%;
+                        height: 40%;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                }
+
+                ._BOX_0_0_1_0
+                {
+                        color: #eee;
+                        font-family: monospace;
+                        font-weight: bold;
+                        text-align: center;
+
+                        font-size: 0.8rem;
+                }
+
+        </style>
+</head>
+
+<body>
+
+
+        <div class="_BOX_0">
+
+                <div class="_BOX_0_0">
+
+                        <div class="_BOX_0_0_0">
+
+                                <div class="_BOX_0_0_0_0">
+
+                                </div>
+
+                        </div>
+                        <div class="_BOX_0_0_1">
+
+                                <div class="_BOX_0_0_1_0">
+                                        text....
+                                </div>
+
+                        </div>
+
+                </div>
+        </div>
+
+
+
+        <div class="webgl-content">
+                <div id="gameContainer" class="_container" style="width: 960px; height: 600px">
+                        <!--
+                              to get right behaviour
+                              override inline css
+                              canvas width max can exeed 1280px
+                              flexbox inside
+                                  absolute position element (100vw 100vh)
+
+
+                              .animate.... fill:forwards
+                          -->
+
+                </div>
+                <div class="footer _hide">
+                        <div class="webgl-logo _hide"></div>
+                        <div class="fullscreen _hide" onclick="gameInstance.SetFullscreen(1)"></div>
+                        <div class="title _hide">IO_web_1_1</div>
+                </div>
+        </div>
+
+
+
+
+
+
+        //progress_towards
+        <script type="text/javascript">
+                let index_ = 0;
+
+
+                let _BOX_0;
+                let _BOX_0_0_0_0;
+                let _BOX_0_0_1_0;
+
+                let start = true;
+
+                function _progress_towards(value_)
+                {
+                        if (value_ == 1)
+                        {
+                                _BOX_0.style.display = "none";
+                                return;
+                        }
+
+
+
+                        if (start)
+                        {
+                                _BOX_0 = document.querySelector("._BOX_0");
+                                _BOX_0_0_0_0 = document.querySelector("._BOX_0_0_0_0");
+                                _BOX_0_0_1_0 = document.querySelector("._BOX_0_0_1_0");
+
+                                start = false;
+                        }
+
+
+                        var v = (value_ / 0.88 * 100);
+                        if (v >= 100) v = 100;
+
+
+                        _BOX_0_0_0_0.animate(
+                                [
+                                        {
+                                                width: _BOX_0_0_0_0.style.width
+                                        },
+                                        {
+                                                width: v + "%"
+                                        }
+
+                                ],
+                                {
+                                        duration: 700,
+                                        fill: "forwards"
+                                }
+                        );
+                        if (value_ > 0.88)
+                        {
+                                //  fillText.textContent = "extracting...";
+                                _BOX_0_0_1_0.innerHTML = "extracting...";
+                                return;
+                        }
+
+
+                        if (v < 4)
+                        {
+                                var str = "preparing";
+                                var num_of_dots = index_ % 4 + 1;
+                                for (var i = 0; i < num_of_dots; i += 1)
+                                        str += ".";
+                                _BOX_0_0_1_0.innerHTML = str;
+                                index_ += 1;
+                        }
+                        else if (v >= 5 && v <= 100)
+                        {
+                                var str = "loading";
+                                if (value_ > 0.2) str += ".";
+                                if (value_ > 0.5) str += ".";
+                                if (value_ > 0.8) str += ".";
+
+                                str += "\n";
+                                str += "(";
+
+                                var v1 = (v * 0.01).toFixed(2);
+                                str += v1;
+                                str += "/1.00";
+                                str += ")";
+
+                                _BOX_0_0_1_0.innerHTML = str;
+                        }
+
+
+                }
+
+        </script>
+
+
+</body>
+
+</html>
